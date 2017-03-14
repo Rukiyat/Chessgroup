@@ -42,6 +42,23 @@ void Newplayer::on_create_clicked()
         connClose();
 
         this->hide();
+        QMessageBox Welcome;
+        Welcome.setText
+
+                       (" ******     **" "\n"
+                       "**********   **" "\n"
+                     "***            **" "\n"
+                   " ***             **            ****       ****        ****   ""\n"
+                    "***             **          ********   ***  ***    ***  ***" "\n"
+                   " ***             ** ****    ***    *** ***         ***        " "\n"
+                    "***             ****  **   **********   ******      ******  " "\n"
+                    " ***            ***    **  ***             *****       ***** ""\n"
+                       "**********   **     **   ****       ***   **    ***   ** ""\n"
+                       " *******     **     **     ****       *****       ***** " "\n"
+                       "                                                        ""\n"
+                                   " WELCOME TO CAPTURE THE ENEMY!!!                 ");
+
+        Welcome.exec();
         gamestatus.show();
     }
 
@@ -53,6 +70,8 @@ void Newplayer::on_create_clicked()
         message.setText("Sorry!!. Password doesn't match, please try again.");
         message.exec();
     }
+
+
 }
 
 

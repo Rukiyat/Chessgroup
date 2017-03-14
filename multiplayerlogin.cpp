@@ -47,9 +47,11 @@ void MultiplayerLogin::on_multiplayerenter_clicked()
        {
           int count1=0;
           while(qry.next())
-          while(qry2.next())
           {
-             count1++;
+              while(qry2.next())
+              {
+                 count1++;
+              }
           }
         if (count1==1)
         {
@@ -69,7 +71,6 @@ void MultiplayerLogin::on_multiplayerenter_clicked()
        }
 
     }
-
 }
 
 

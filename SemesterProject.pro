@@ -33,7 +33,8 @@ SOURCES += main.cpp\
     movesvalidation.cpp \
     movementlabel.cpp \
     walls.cpp \
-    validatemoves.cpp
+    validatemoves.cpp \
+    mytimer.cpp
 
 HEADERS  += \
     newplayer.h \
@@ -45,7 +46,9 @@ HEADERS  += \
     movesvalidation.h \
     movementlabel.h \
     walls.h \
-    validatemoves.h
+    validatemoves.h \
+    mytimer.h \
+    Connector.hpp
 
 FORMS    += \
     newplayer.ui \

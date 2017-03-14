@@ -1,7 +1,7 @@
 
 #include <QApplication>
 #include "ScreenWindow.h"
-
+//#include "mytimer.h"
 
 
 

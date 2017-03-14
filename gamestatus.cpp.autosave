@@ -628,16 +628,15 @@ void validate(walls *temp,int c,QWidget *baseWidget)
             {
                 position="H1";
             }
-
-
-
-            qDebug()<< position;
-            model->setItem(rowcount1,Turnlabel, new QStandardItem(turnLabel));
-            model->setItem(rowcount1,Position, new QStandardItem(position));
+            
             if(model->rowCount() == 0)
             {
                 model->setRowCount(1);
             }
+            
+            qDebug()<< position;
+            model->setItem(rowcount1,Turnlabel, new QStandardItem(turnLabel));
+            model->setItem(rowcount1,Position, new QStandardItem(position));
 
 
 
@@ -1054,14 +1053,14 @@ void validate(walls *temp,int c,QWidget *baseWidget)
 //                qry.exec();
 //                connClose();
 
-
-
-                model->setItem(rowcount1,PieceName, new QStandardItem(piecename));
-                model->setItem(rowcount1,NewPosition, new QStandardItem(newposition));
                 if(model->rowCount() == 0)
                 {
                     model->setRowCount(1);
                 }
+                
+
+                model->setItem(rowcount1,PieceName, new QStandardItem(piecename));
+                model->setItem(rowcount1,NewPosition, new QStandardItem(newposition));
 
 
 
@@ -1445,13 +1444,13 @@ void validate(walls *temp,int c,QWidget *baseWidget)
 //                qry.exec();
 //                connClose();
 
-
-                model->setItem(rowcount1,PieceName, new QStandardItem(piecename));
-                model->setItem(rowcount1,NewPosition, new QStandardItem(newposition));
                 if(model->rowCount() == 0)
                 {
                     model->setRowCount(1);
                 }
+                model->setItem(rowcount1,PieceName, new QStandardItem(piecename));
+                model->setItem(rowcount1,NewPosition, new QStandardItem(newposition));
+
 
 
 

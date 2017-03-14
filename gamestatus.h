@@ -22,6 +22,8 @@ public:
     explicit GameStatus(QWidget *parent = 0);
     ~GameStatus();
 
+
+
 private slots:
     void on_newgame_clicked();
     void on_goback_clicked();

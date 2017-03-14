@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>423</width>
-    <height>211</height>
+    <width>528</width>
+    <height>250</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,8 +16,8 @@
   <widget class="QPushButton" name="newgame">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>80</y>
+     <x>50</x>
+     <y>100</y>
      <width>171</width>
      <height>61</height>
     </rect>
@@ -32,8 +32,8 @@
   <widget class="QPushButton" name="currentgame">
    <property name="geometry">
     <rect>
-     <x>230</x>
-     <y>80</y>
+     <x>330</x>
+     <y>100</y>
      <width>171</width>
      <height>61</height>
     </rect>
@@ -48,8 +48,8 @@
   <widget class="QLabel" name="welcomemsg">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>20</y>
+     <x>50</x>
+     <y>30</y>
      <width>371</width>
      <height>41</height>
     </rect>
@@ -72,7 +72,7 @@
    <property name="geometry">
     <rect>
      <x>0</x>
-     <y>180</y>
+     <y>220</y>
      <width>111</width>
      <height>31</height>
     </rect>

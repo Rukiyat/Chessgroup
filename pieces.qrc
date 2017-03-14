@@ -13,5 +13,7 @@
         <file>rook_white.svg</file>
         <file>knight_white.svg</file>
         <file>profile.png</file>
+        <file>banna icon.png</file>
+        <file>stockfish-8-64</file>
     </qresource>
 </RCC>
