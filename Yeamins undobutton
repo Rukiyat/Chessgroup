@@ -1,0 +1,35 @@
+//performs what the undo function should do.
+void Undo()
+{
+
+    savemoves connection;
+
+
+    connection.connOpen();
+    QSqlQuery* savequery= new QSqlQuery(connection.pdatabase);
+    savequery->prepare("Delete from savemoves where PieceColour ='"+pieceColour+"',PieceName='"+piecename+"',PiecePresent='"+piecePresent+"',PiecePosition='"+saveposition+"',username='"+playersturn+"'");
+    if (savequery->exec())
+    {
+        QMessageBox message;
+        message.setText("DATA DELETED");
+        message.exec();
+        connection.connClose();
+    }
+    else
+    {
+        QMessageBox message;
+        message.setText("UNABLE TO DELETE");
+        message.exec();
+    }
+
+
+// draws the buttonUndo" and then calls undo function
+void buttonUndo(QWidget *baseWidget) //
+{
+    buttonsheader but;
+    but.undo = new QPushButton("UNDO MOVE",baseWidget); // defining a variable for the pushbutton
+    but.undo->setGeometry(0,170,100,30); // defines the size and the position of the button
+    but.undo->setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(164, 164, 164, 255), stop:1 rgba(255, 255, 255, 255));"); // stylesheet defines font
+    QAbstractAnimation::connect(but.undo, SIGNAL(clicked()), baseWidget, SLOT(Undo()));
+
+}
