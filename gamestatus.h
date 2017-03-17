@@ -1,5 +1,5 @@
-#ifndef GAMESTATUS_H
-#define GAMESTATUS_H
+#ifndef gamestatus_H
+#define gamestatus_H
 
 #include <QMainWindow>
 #include <QDialog>
@@ -7,32 +7,30 @@
 #include <QtDebug>
 #include <QFileInfo>
 
-//#include "chessboard.h"
 
 
 namespace Ui {
-class GameStatus;
+class gamestatus;
 }
 
-class GameStatus : public QDialog
+class gamestatus : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit GameStatus(QWidget *parent = 0);
-    ~GameStatus();
-
+    explicit gamestatus(QWidget *parent = 0);
+    ~gamestatus();
 
 
 private slots:
     void on_newgame_clicked();
     void on_goback_clicked();
+    void on_currentgame_clicked();
 
 
 private:
-    Ui::GameStatus *ui;
-//    chessboard chessboard;
+    Ui::gamestatus *ui;
 
 };
 
-#endif // GAMESTATUS_H
+#endif // gamestatus_H
