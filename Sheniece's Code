@@ -3269,3 +3269,18 @@ color: black;</string>
  <connections/>
 </ui>
 
+//The following function executes the entire code above
+#include "startwindow.h"
+#include <QApplication>
+
+
+int main(int argc, char *argv[])
+{
+    QApplication Chess(argc, argv);
+    StartWindow chess;
+    chess.show();
+
+    return Chess.exec();
+}
+
+
