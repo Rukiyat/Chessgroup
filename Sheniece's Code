@@ -1,0 +1,3271 @@
+//Forgot Password header
+#ifndef FORGOTTENPASSWORD_H
+#define FORGOTTENPASSWORD_H
+
+#include <QDialog>
+#include <QtSql>
+#include <QDebug>
+#include <QFileInfo>
+
+namespace Ui {
+class forgottenPassword;
+}
+
+class forgottenPassword : public QDialog
+{
+    Q_OBJECT
+
+public:
+
+    QSqlDatabase mydb;
+    void connectionClose()
+{
+    mydb.close();
+    mydb.removeDatabase(QSqlDatabase::defaultConnection);
+}
+
+    bool connectionOpen()
+{
+    mydb=QSqlDatabase::addDatabase("QSQLITE");
+    mydb.setDatabaseName("C:/ChessProject/logindb.db");
+
+    if (!mydb.open())
+    {
+        qDebug()<<("Database Connection Failed");
+        return false;
+    }
+
+    else
+    {
+        qDebug()<<("Database Connection Successful");
+        return true;
+    }
+
+    }
+
+
+public:
+    explicit forgottenPassword(QWidget *parent = 0);
+    ~forgottenPassword();
+
+private slots:
+    void on_getPWButton_clicked();
+
+private:
+    Ui::forgottenPassword *ui;
+};
+
+#endif // FORGOTTENPASSWORD_H
+
+//Forgot Username header
+#ifndef FORGOTTENUSERNAME_H
+#define FORGOTTENUSERNAME_H
+
+#include <QDialog>
+#include <QtSql>
+#include <QDebug>
+#include <QFileInfo>
+
+namespace Ui {
+class forgottenUserName;
+}
+
+class forgottenUserName : public QDialog
+{
+    Q_OBJECT
+public:
+
+    QSqlDatabase mydb;
+    void connectionClose()
+{
+    mydb.close();
+    mydb.removeDatabase(QSqlDatabase::defaultConnection);
+}
+
+    bool connectionOpen()
+{
+    mydb=QSqlDatabase::addDatabase("QSQLITE");
+    mydb.setDatabaseName("C:/ChessProject/logindb.db");
+
+    if (!mydb.open())
+    {
+        qDebug()<<("Database Connection Failed");
+        return false;
+    }
+
+    else
+    {
+        qDebug()<<("Database Connection Successful");
+        return true;
+    }
+ }
+
+
+public:
+
+    explicit forgottenUserName(QWidget *parent = 0);
+    ~forgottenUserName();
+
+private slots:
+
+    void on_getUNButton_clicked();
+
+private:
+
+    Ui::forgottenUserName *ui;
+};
+
+#endif // FORGOTTENUSERNAME_H
+
+//Instructions Page header
+#ifndef INSTRUCTIONS_H
+#define INSTRUCTIONS_H
+
+#include <QDialog>
+
+namespace Ui {
+class Instructions;
+}
+
+class Instructions : public QDialog
+{
+    Q_OBJECT
+
+public:
+    explicit Instructions(QWidget *parent = 0);
+    ~Instructions();
+
+private:
+    Ui::Instructions *ui;
+};
+
+#endif // INSTRUCTIONS_H
+
+//Multi Player Mode header
+#ifndef MULTIPCHESS_H
+#define MULTIPCHESS_H
+
+#include <QDialog>
+#include "multipmode.h"
+
+namespace Ui {
+class multiPChess;
+}
+
+class multiPChess : public QDialog
+{
+    Q_OBJECT
+
+public:
+    explicit multiPChess(QWidget *parent = 0);
+    ~multiPChess();
+
+private:
+    Ui::multiPChess *ui;
+};
+
+#endif // MULTIPCHESS_H
+
+//Multi Player Login header
+#ifndef MULTIPMODE_H
+#define MULTIPMODE_H
+
+#include <QDialog>
+#include <QtSql>
+#include <QDebug>
+#include <QFileInfo>
+#include <QString>
+
+namespace Ui {
+class multiPMode;
+}
+
+class multiPMode : public QDialog
+{
+    Q_OBJECT
+
+public:
+    QSqlDatabase mydb;
+    void connectionClose()
+{
+    mydb.close();
+    mydb.removeDatabase(QSqlDatabase::defaultConnection);
+
+
+}
+
+    bool connectionOpen()
+{
+    mydb=QSqlDatabase::addDatabase("QSQLITE");
+    mydb.setDatabaseName("C:/ChessProject/logindb.db");
+
+    if (!mydb.open())
+    {
+        qDebug()<<("Database Connection Failed");
+        return false;
+    }
+
+    else
+    {
+        qDebug()<<("Database Connection Successful");
+        return true;
+    }
+
+}
+
+public:
+    explicit multiPMode(QWidget *parent = 0);
+    ~multiPMode();
+
+private slots:
+    void on_loginButton2_clicked();
+
+    void on_signupButton_clicked();
+
+    void on_fUNButton2_clicked();
+
+    void on_fPWButton2_clicked();
+
+private:
+    Ui::multiPMode *ui;
+};
+
+#endif // MULTIPMODE_H
+
+//Multi PLayer Sign Up header
+#ifndef MULTIPMODE2_H
+#define MULTIPMODE2_H
+
+#include <QDialog>
+#include <QtSql>
+#include <QDebug>
+#include <QFileInfo>
+#include <QString>
+
+namespace Ui {
+class multiPMode2;
+}
+
+class multiPMode2 : public QDialog
+{
+    Q_OBJECT
+
+public:
+
+    QSqlDatabase mydb;
+    void connectionClose()
+{
+    mydb.close();
+    mydb.removeDatabase(QSqlDatabase::defaultConnection);
+
+
+}
+
+    bool connectionOpen()
+{
+    mydb=QSqlDatabase::addDatabase("QSQLITE");
+    mydb.setDatabaseName("C:/ChessProject/logindb.db");
+
+    if (!mydb.open())
+    {
+        qDebug()<<("Database Connection Failed");
+        return false;
+    }
+
+    else
+    {
+        qDebug()<<("Database Connection Successful");
+        return true;
+    }
+
+}
+
+public:
+    explicit multiPMode2(QWidget *parent = 0);
+    ~multiPMode2();
+
+private slots:
+
+    void on_createAccButton2_clicked();
+
+    void on_createAccButton4_clicked();
+
+    void on_createButton5_clicked();
+
+private:
+    Ui::multiPMode2 *ui;
+};
+
+#endif // MULTIPMODE2_H
+
+//Single Player Mode header
+#ifndef SINGLEPCHESS_H
+#define SINGLEPCHESS_H
+
+#include <QDialog>
+#include "singlepmode.h"
+
+namespace Ui {
+class singlePChess;
+}
+
+class singlePChess : public QDialog
+{
+    Q_OBJECT
+
+public:
+    explicit singlePChess(QWidget *parent = 0);
+    ~singlePChess();
+
+private:
+    Ui::singlePChess *ui;
+};
+
+#endif // SINGLEPCHESS_H
+
+//Single Player Login header
+#ifndef SINGLEPMODE_H
+#define SINGLEPMODE_H
+
+#include <QDialog>
+#include <QtSql>
+#include <QDebug>
+#include <QFileInfo>
+#include <QString>
+
+namespace Ui {
+class singlePMode;
+}
+
+class singlePMode : public QDialog
+{
+    Q_OBJECT
+
+public:
+
+    QSqlDatabase mydb;
+    void connectionClose()
+{
+    mydb.close();
+    mydb.removeDatabase(QSqlDatabase::defaultConnection);
+
+
+}
+
+    bool connectionOpen()
+{
+    mydb=QSqlDatabase::addDatabase("QSQLITE");
+    mydb.setDatabaseName("C:/ChessProject/logindb.db");
+
+    if (!mydb.open())
+    {
+        qDebug()<<("Database Connection Failed");
+        return false;
+    }
+
+    else
+    {
+        qDebug()<<("Database Connection Successful");
+        return true;
+    }
+
+}
+
+
+public:
+    explicit singlePMode(QWidget *parent = 0);
+    ~singlePMode();
+
+private slots:
+    void on_fUNButton_clicked();
+
+    void on_fPWButton_clicked();
+
+    void on_loginButton_clicked();
+
+    void on_createAccButton_clicked();
+
+private:
+    Ui::singlePMode *ui;
+};
+
+#endif // SINGLEPMODE_H
+
+//Start window header
+#ifndef STARTWINDOW_H
+#define STARTWINDOW_H
+
+#include <QMainWindow>
+
+namespace Ui {
+class StartWindow;
+}
+
+class StartWindow : public QMainWindow
+{
+    Q_OBJECT
+
+public:
+    explicit StartWindow(QWidget *parent = 0);
+    ~StartWindow();
+
+private slots:
+    void on_singlePButton_clicked();
+
+    void on_multiPButton_clicked();
+
+    void on_instructionsButton_clicked();
+
+private:
+    Ui::StartWindow *ui;
+};
+
+#endif // STARTWINDOW_H
+
+
+//Start window source code
+#include "startwindow.h"
+#include "ui_startwindow.h"
+#include "singlepmode.h"
+#include "multipmode.h"
+#include "instructions.h"
+#include "singlepchess.h"
+#include "multipchess.h"
+
+
+StartWindow::StartWindow(QWidget *parent) :
+    QMainWindow(parent),
+    ui(new Ui::StartWindow)
+{
+    ui->setupUi(this);
+    StartWindow::showMaximized();
+    this->setStyleSheet("background-color: #1d1d1d;");
+    this->setWindowTitle("Chess 2.0");
+}
+
+StartWindow::~StartWindow()
+{
+    delete ui;
+}
+
+//opens the 'Single Player Mode' when the 'Single Player' button is selected.
+void StartWindow::on_singlePButton_clicked()
+{
+    singlePMode singlepmode;
+    singlepmode.setModal(true);
+    singlepmode.exec();
+}
+
+//opens the 'Multi Player Login' mode when the 'Multi Player' button is selected.
+void StartWindow::on_multiPButton_clicked()
+{
+    multiPMode multipmode;
+    multipmode.setModal(true);
+    multipmode.exec();
+}
+//opens the 'Instructions' page when the 'Instructions' button is selected.
+void StartWindow::on_instructionsButton_clicked()
+{
+    Instructions instructions;
+    instructions.setModal(true);
+    instructions.exec();
+}
+
+//Single Player Login source code
+#include "singlepmode.h"
+#include "ui_singlepmode.h"
+#include "forgottenusername.h"
+#include "forgottenpassword.h"
+#include "singlepchess.h"
+#include <QSqlDatabase>
+#include <QSqlQuery>
+#include <QtSql>
+#include <QMessageBox>
+
+
+
+singlePMode::singlePMode(QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::singlePMode)
+{
+    ui->setupUi(this);
+    singlePMode::showMaximized();
+    this->setStyleSheet("background-color: #1d1d1d; color: white;");
+    this->setWindowTitle("Single Player Login");
+
+    ui->pwInput1->setEchoMode(QLineEdit::Password);
+    ui->pwInput2->setEchoMode(QLineEdit::Password);
+    ui->statusLabel->setStyleSheet("color: white;");
+    QStringList list=(QStringList()<<"Favourite Teacher"<<"Favourite Place"<<"Favourite TV Programme");
+    ui->spmsqListBox->addItems(list);
+
+
+    if (!connectionOpen())
+        ui->statusLabel->setText("Database Connection Failed");
+    else
+        ui->statusLabel->setText("Database Connection Successful");
+
+}
+
+singlePMode::~singlePMode()
+{
+    delete ui;
+}
+
+void singlePMode::on_fUNButton_clicked()
+{
+   forgottenUserName forgottenusername;
+   forgottenusername.setModal(true);
+   forgottenusername.exec();
+}
+
+void singlePMode::on_fPWButton_clicked()
+{
+    forgottenPassword forgottenpassword;
+    forgottenpassword.setModal(true);
+    forgottenpassword.exec();
+}
+
+//
+void singlePMode::on_loginButton_clicked()
+{
+    QString username, password;
+    username=ui->unInput1->text();
+    password=ui->pwInput1->text();
+
+    if(!connectionOpen())
+    {
+        qDebug()<<"Failed to open Database";
+        return;
+    }
+    connectionOpen();
+    QSqlQuery qry;
+    qry.prepare("select * from user where username = '"+ username +"' and password = '"+ password +"'");
+
+    if(qry.exec())
+    {
+        int count = 0; //counts number of times it executes the query
+        while(qry.next())
+        {
+            count++; //increments the query by 1
+        }
+        if(count ==1)
+        {
+            ui->statusLabel->setText("Login Successful!");
+            connectionClose();
+            this->hide();
+//opens the single player mode of the chess game.
+            singlePChess singlepchess;
+            singlepchess.setModal(true);
+            singlepchess.exec();
+        }
+
+        if(count <1)
+            ui->statusLabel->setText("Login Unsuccessful! \nPlease Check That Your Username & Password are Correct.");
+    }
+}
+
+void singlePMode::on_createAccButton_clicked()
+{
+    singlePMode connection;
+    QString username, password, email, securityQuestion, answer;
+    username=ui->unInput2->text();
+    password=ui->pwInput2->text();
+    email=ui->emailInput->text();
+    securityQuestion=ui->spmsqListBox->currentText();
+    answer=ui->answerInput->text();
+
+    if(!connection.connectionOpen())
+    {
+        qDebug()<<"Failed to open Database";
+        return;
+    }
+    connectionOpen();
+    QSqlQuery qry;
+    qry.prepare("INSERT INTO user (username, password, email, securityQuestion, answer) VALUES ('"+ username +"', '"+password+"','"+email+"', '"+securityQuestion+"','"+answer+"')");
+
+    if(qry.exec())
+    {
+        QMessageBox::information(this, tr("Create Account"), tr("Your Account Has Successfully Been Created"));
+        connection.connectionClose();
+
+        foreach(QLineEdit* tr, findChildren<QLineEdit*>())
+        {
+            tr->clear();
+        }
+    }
+    else
+    {
+        QMessageBox::critical(this, tr("ERROR 404!"), qry.lastError().text());
+    }
+}
+
+//Single Player Chess Game window source code. (Excludes the chess board's source code - attempted by other members of the group).
+#include "singlepchess.h"
+#include "ui_singlepchess.h"
+
+singlePChess::singlePChess(QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::singlePChess)
+{
+    ui->setupUi(this);
+    singlePChess::showMaximized();
+    this->setWindowTitle("Chess 2.0: Single Player Mode");
+    this->setStyleSheet("background-color: #1d1d1d;");
+    ui->statusLabel2->setStyleSheet("color: white;");
+
+    singlePMode connection;
+    if(!connection.connectionOpen())
+        ui->statusLabel2->setText("Database Connection Failed");
+    else
+        ui->statusLabel2->setText("Database Connection Successful");
+
+}
+
+singlePChess::~singlePChess()
+{
+    delete ui;
+}
+
+//Multi Player Login source code
+#include "multipmode.h" //passing through the 'Multi Player Sign Up' window.
+#include "ui_multipmode.h" //passing through the 'Multi Player Sign Up' useer interface.
+#include "multipchess.h" //passing through the 'Multi Player Mode' header.
+#include "multipmode2.h" //passing through the 'Multi Player Login' header.
+#include "forgottenusername.h" //passing through the 'Forgot Username' header.
+#include "forgottenpassword.h" //passing through the 'Forgot Password' header.
+#include <QSqlDatabase> //informs the program that a database creted in SQLite will be connected to this form.
+#include <QSqlQuery> //lets the program know that SQLite queries will be performed in this form.
+#include <QtSql> //lets the program know that SQLite will be incorporated.
+
+//assigns the window to its form.
+multiPMode::multiPMode(QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::multiPMode)
+{
+    ui->setupUi(this);
+    multiPMode::showMaximized(); //opens the page in fullscreen mode.
+    this->setStyleSheet("background-color: #1d1d1d; color: white;"); //sets thebackground & font colour of the window.
+    this->setWindowTitle("Multi Player Login"); //sets the window bar title.
+    ui->statusLabel3->setStyleSheet("color: white;"); //sets the font colour of the database status.
+
+//hides the text inputted by the user when typing in their password.
+    ui->pwInputp1->setEchoMode(QLineEdit::Password);
+    ui->pwInputp2->setEchoMode(QLineEdit::Password);
+
+//"creates a pathway for the database to be opened; if the database succesfully connects with the gui, then it displays
+// it executes the second condition. If not then the first condition is executed.
+    if (!connectionOpen())
+        ui->statusLabel3->setText("Database Connection Failed");
+    else
+        ui->statusLabel3->setText("Database Connection Successful");
+}
+//this function deletes the window when the 'X' button is clicked on.
+multiPMode::~multiPMode()
+{
+    delete ui;
+}
+//this function checks that the details inputted by the user upon logging matches a record stored in the database...
+void multiPMode::on_loginButton2_clicked()
+{
+    QString username, password;
+    username=ui->unInputp1->text();
+    username=ui->unInputp2->text();
+    password=ui->pwInputp1->text();
+    password=ui->pwInputp2->text();
+
+    if(!connectionOpen())
+    {
+        qDebug()<<"Failed to open Database";
+        return;
+    }
+    connectionOpen();
+    QSqlQuery qry;
+    qry.prepare("select * from user where username = '"+ username +"' and password = '"+ password +"'");
+
+//...Once the login button has been clicked on by the user, the following condition checks to see whether the inputted
+//details match a record in the SQLite database. If there is a singular match, the first condition of the 'nested if
+//statement' is executed; however if the details are incorrect or non-existent, then the program updates its status by
+//informing the user that the login has been unsuccessful.
+
+    if(qry.exec())
+    {
+        int count = 0; //counts number of times it executes the query
+        while(qry.next())
+        {
+            count++;
+        }
+        if(count ==1)
+        {
+//if the login issuccessful then the program opens the window containing the chess board.
+            ui->statusLabel3->setText("Login Successful!");
+            connectionClose();
+            this->hide();
+            multiPChess multipchess;
+            multipchess.setModal(true);
+            multipchess.exec();
+        }
+
+        if(count <1)
+            ui->statusLabel3->setText("Login Unsuccessful! \nPlease Check That Your Username & Password are Correct.");
+    }
+}
+
+//the following function opens the 'Multi Player Sign In' page when the 'Sign Up' button is selected by the user.
+void multiPMode::on_signupButton_clicked()
+{
+    multiPMode2 multipmode2;
+    multipmode2.setModal(true);
+    multipmode2.exec();
+}
+
+//the following function opens the 'Forgotten Username' page when the 'Forgotten Username' button is clicked on.
+void multiPMode::on_fUNButton2_clicked()
+{
+    forgottenUserName forgottenusername;
+    forgottenusername.setModal(true);
+    forgottenusername.exec();
+}
+
+//the following function opens the 'Forgotten Password' page when the 'Forgotten Password' button is clicked on.
+void multiPMode::on_fPWButton2_clicked()
+{
+    forgottenPassword forgottenpassword;
+    forgottenpassword.setModal(true);
+    forgottenpassword.exec();
+}
+
+//Multi Player Sign Up source code
+#include "multipmode2.h"
+#include "ui_multipmode2.h"
+#include "multipchess.h"
+#include <QSqlDatabase>
+#include <QSqlQuery>
+#include <QtSql>
+#include <QMessageBox> //lets the program know that a messagebox will be used in this window.
+#include <QStringList> //informs the program that a list of string will used.
+
+multiPMode2::multiPMode2(QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::multiPMode2)
+{
+    ui->setupUi(this);
+    multiPMode2::showMaximized();
+    this->setStyleSheet("background-color: #1d1d1d; color: white;");
+    this->setWindowTitle("Multi Player Sign Up");
+    ui->statusLabel5->setStyleSheet("color: white;");
+
+    ui->pwInput3->setEchoMode(QLineEdit::Password);
+    ui->pwInput4->setEchoMode(QLineEdit::Password);
+    ui->answerInput2->setEchoMode(QLineEdit::Password);
+    ui->answerInput3->setEchoMode(QLineEdit::Password);
+
+    QStringList list=(QStringList()<<"Favourite Teacher"<<"Favourite Place"<<"Favourite TV Programme");
+    ui->securityQuestInput2->addItems(list);
+    ui->securityQuestInput3->addItems(list);
+
+
+    if (!connectionOpen())
+        ui->statusLabel5->setText("Database Connection Failed");
+    else
+        ui->statusLabel5->setText("Database Connection Successful");
+
+}
+
+multiPMode2::~multiPMode2()
+{
+    delete ui;
+}
+
+void multiPMode2::on_createAccButton4_clicked()
+{
+    multiPMode connection;
+    QString username, password, email, securityQuestion, answer;
+    username=ui->unInput3->text();
+    password=ui->pwInput3->text();
+    email=ui->emailInput2->text();
+    securityQuestion=ui->securityQuestInput2->currentText();
+    answer=ui->answerInput2->text();
+
+    if(!connection.connectionOpen())
+    {
+        qDebug()<<"Failed to open Database";
+        return;
+    }
+    connectionOpen();
+//...Once the create account button has been clicked on by the user, the following query takes the values inputted in
+//in each field and stores them in the database according to their correct database entity. For example, the
+//information inputted by the user in the 'email' field will then be stored under the 'email' entity in the SQLite
+//database.
+    QSqlQuery qry;
+    qry.prepare("INSERT INTO user (username, password, email, securityQuestion, answer) VALUES ('"+ username +"', '"+password+"','"+email+"', '"+securityQuestion+"','"+answer+"')");
+
+    if(qry.exec())
+    {
+//Once all details have been entered and the 'create account'  button is clicked on, a message box willoccur, stating
+//that the sign up process has been successfully completed. Following this the form fields are updated and thus cleared.
+        QMessageBox::information(this, tr("Create Account"), tr("Your Account Has Successfully Been Created"));
+        connection.connectionClose();
+
+        foreach(QLineEdit* tr, findChildren<QLineEdit*>())
+        {
+            tr->clear();
+        }
+    }
+    else
+    {
+//Nevertheless, if the sign up fails, an error meaage box will then appear stating what exactly the error is;
+//I created this using the '.lastError()' keyword.
+        QMessageBox::critical(this, tr("ERROR 404!"), qry.lastError().text());
+    }
+}
+
+void multiPMode2::on_createButton5_clicked()
+{
+    multiPMode connection;
+    QString username, password, email, securityQuestion, answer;
+
+    username=ui->unInput4->text();
+    password=ui->pwInput4->text();
+    email=ui->emailInput3->text();
+    securityQuestion=ui->securityQuestInput3->currentText();
+    answer=ui->answerInput3->text();
+
+    if(!connection.connectionOpen())
+    {
+        qDebug()<<"Failed to open Database";
+        return;
+    }
+    connectionOpen();
+    QSqlQuery qry;
+    qry.prepare("INSERT INTO user (username, password, email, securityQuestion, answer) VALUES ('"+ username +"', '"+password+"','"+email+"', '"+securityQuestion+"','"+answer+"')");
+
+    if(qry.exec())
+    {
+        QMessageBox::information(this, tr("Create Account"), tr("Your Account Has Successfully Been Created"));
+        connection.connectionClose();
+
+        foreach(QLineEdit* tr, findChildren<QLineEdit*>())
+        {
+            tr->clear();
+        }
+    }
+    else
+    {
+        QMessageBox::critical(this, tr("ERROR 404!"), qry.lastError().text());
+    }
+
+}
+
+//open the multi player mode of the chess game.
+void multiPMode2::on_createAccButton2_clicked()
+{
+    multiPChess multipchess;
+    multipchess.setModal(true);
+    multipchess.exec();
+}
+
+//Multi Player Chess Game window source code. (Excludes the chess board's source code - created by other members of the group).
+#include "multipchess.h"
+#include "ui_multipchess.h"
+
+multiPChess::multiPChess(QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::multiPChess)
+{
+    ui->setupUi(this);
+    multiPChess::showMaximized();
+    this->setWindowTitle("Chess 2.0: Multi Player Mode");
+    this->setStyleSheet("background-color: #1d1d1d;");
+    ui->statusLabel4->setStyleSheet("color: white;");
+
+    multiPMode connection;
+    if(!connection.connectionOpen())
+        ui->statusLabel4->setText("Database Connection Failed");
+    else
+        ui->statusLabel4->setText("Database Connection Successful");
+}
+
+multiPChess::~multiPChess()
+{
+    delete ui;
+}
+
+//Forgotten Username source code
+#include "forgottenusername.h"
+#include "ui_forgottenusername.h"
+#include <QSqlDatabase>
+#include <QSqlQuery>
+#include <QtSql>
+
+forgottenUserName::forgottenUserName(QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::forgottenUserName)
+{
+    ui->setupUi(this);
+    forgottenUserName::showNormal();
+    this->setStyleSheet("background-color: white;");
+    this->setWindowTitle("Forgotten Username?");
+
+//loads the three following items into the 'Security Question' combo box, so that the user can choose their preferred
+//security question upon signing up.
+    QStringList list=(QStringList()<<"Favourite Teacher"<<"Favourite Place"<<"Favourite TV Programme");
+    ui->fUNSecurityInput->addItems(list);
+}
+
+forgottenUserName::~forgottenUserName()
+{
+    delete ui;
+}
+
+//the function below takes the information inputted by the user and performs a 'VLOOKUP' function using a query in the
+//SQLite database, in order to return the desired value, being the user's username.
+void forgottenUserName::on_getUNButton_clicked()
+{
+    forgottenUserName connection;
+    QString email, securityQuestion, answer;
+    email=ui->fUNInput->text();
+    securityQuestion=ui->fUNSecurityInput->currentText();
+    answer=ui->fUNAnswerInput->text();
+
+    QSqlQueryModel *  username=new QSqlQueryModel();
+
+    if(!connection.connectionOpen())
+    {
+//if the connection between the SQLite database and the gui fails, then the following message is returned by the program.
+        qDebug()<<"Failed to open Database";
+        return;
+    }
+    connectionOpen(); //establish a connection between the database and the query.
+    QSqlQuery* qry = new QSqlQuery(connection.mydb);
+    qry->prepare("SELECT username FROM user WHERE email = '"+ email +"' and securityQuestion = '"+ securityQuestion +"'and answer = '"+ answer +"'");
+    qry->exec();
+
+//when the program locates the desired value, the valueis then passed to a list view box, where the username is then
+//dispalyed for the user to see.
+    username->setQuery((*qry));
+    ui->revealUsername->setModel(username);
+
+    connectionClose(); //closes the database connection.
+}
+
+//Forgotten Password source code
+#include "forgottenpassword.h"
+#include "ui_forgottenpassword.h"
+#include <QSqlDatabase>
+#include <QSqlQuery>
+#include <QtSql>
+
+forgottenPassword::forgottenPassword(QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::forgottenPassword)
+{
+    ui->setupUi(this);
+    forgottenPassword::showNormal();
+    this->setStyleSheet("background-color: white;");
+    this->setWindowTitle("Forgotten Password?");
+    QStringList list=(QStringList()<<"Favourite Teacher"<<"Favourite Place"<<"Favourite TV Programme");
+    ui->fpSecurityQuestInput->addItems(list);
+}
+
+forgottenPassword::~forgottenPassword()
+{
+    delete ui;
+}
+
+//the function below takes the information inputted by the user and performs a 'VLOOKUP' function using a query in the
+//SQLite database, in order to return the desired value, being the user's password.
+void forgottenPassword::on_getPWButton_clicked()
+{
+    forgottenPassword connection;
+    QString email, securityQuestion, answer;
+    email=ui->fpEmailInput->text();
+    securityQuestion=ui->fpSecurityQuestInput->currentText();
+    answer=ui->fpAnswerInput->text();
+
+    QSqlQueryModel *  password=new QSqlQueryModel();
+
+    if(!connection.connectionOpen())
+    {
+        qDebug()<<"Failed to open Database";
+        return;
+    }
+    connectionOpen();
+    QSqlQuery* qry = new QSqlQuery(connection.mydb);
+    qry->prepare("SELECT password FROM user WHERE email = '"+ email +"' and securityQuestion = '"+ securityQuestion +"'and answer = '"+ answer +"'");
+    qry->exec();
+//when the program locates the desired value, the value is then passed to a list view box, where the password is then
+//revealed to the user.
+    password->setQuery((*qry));
+    ui->revealPassword->setModel(password);
+
+    connectionClose();
+
+}
+
+//Instructions window source code. (Excludes actual instuctions - created by a different member of the group).
+#include "instructions.h"
+#include "ui_instructions.h"
+
+Instructions::Instructions(QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::Instructions)
+{
+    ui->setupUi(this);
+    Instructions::showMaximized();
+    this->setStyleSheet("background-color: #1d1d1d;");
+    this->setWindowTitle("Instructions");
+}
+
+Instructions::~Instructions()
+{
+    delete ui;
+}
+
+
+//Forgotten Password design code
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>forgottenPassword</class>
+ <widget class="QDialog" name="forgottenPassword">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>966</width>
+    <height>510</height>
+   </rect>
+  </property>
+  <property name="font">
+   <font>
+    <family>AR DESTINE</family>
+    <pointsize>20</pointsize>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QLabel" name="fPWTitle">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>0</y>
+     <width>641</width>
+     <height>81</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>AR DESTINE</family>
+     <pointsize>48</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Forgotten Password?</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="fpLabel1">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>90</y>
+     <width>611</width>
+     <height>81</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>AR DESTINE</family>
+     <pointsize>28</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Please Enter Your Email Address:</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="getPWButton">
+   <property name="geometry">
+    <rect>
+     <x>480</x>
+     <y>410</y>
+     <width>161</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>AR DESTINE</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: white;
+border-style: solid;
+border-color: black;
+border-width: 3px;
+border-radius: 10px;
+color: black;</string>
+   </property>
+   <property name="text">
+    <string>Retrieve Password</string>
+   </property>
+  </widget>
+  <widget class="QListView" name="revealPassword">
+   <property name="geometry">
+    <rect>
+     <x>720</x>
+     <y>280</y>
+     <width>151</width>
+     <height>61</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="rpwTitle">
+   <property name="geometry">
+    <rect>
+     <x>700</x>
+     <y>250</y>
+     <width>191</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Your Password Is:</string>
+   </property>
+  </widget>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>210</y>
+     <width>581</width>
+     <height>46</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QLabel" name="fpEmailLabel">
+      <property name="font">
+       <font>
+        <family>AR DESTINE</family>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Email Address:</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="fpEmailInput">
+      <property name="styleSheet">
+       <string notr="true">background-color: white;
+border-style: solid;
+border-color: black;
+border-width: 5px;
+border-radius: 10px;
+color: black;</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>280</y>
+     <width>581</width>
+     <height>42</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <item>
+     <widget class="QLabel" name="securityQuestLabel">
+      <property name="text">
+       <string>Security Question:</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QComboBox" name="fpSecurityQuestInput">
+      <property name="styleSheet">
+       <string notr="true">background-color: white;
+border-style: solid;
+border-color: black;
+border-width: 3px;
+color: black;</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>350</y>
+     <width>581</width>
+     <height>46</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_3">
+    <item>
+     <widget class="QLabel" name="answerLabel">
+      <property name="text">
+       <string>Answer:</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="fpAnswerInput">
+      <property name="styleSheet">
+       <string notr="true">background-color: white;
+border-style: solid;
+border-color: black;
+border-width: 5px;
+border-radius: 10px;
+color: black;</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
+
+
+//Forgotten Username design code
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>forgottenUserName</class>
+ <widget class="QDialog" name="forgottenUserName">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1035</width>
+    <height>505</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QLabel" name="fUNTitle">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>0</y>
+     <width>641</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>AR DESTINE</family>
+     <pointsize>48</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Forgotten Username?</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="fUNLabel">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>110</y>
+     <width>611</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>AR DESTINE</family>
+     <pointsize>28</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Please Enter Your Email Address:</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="getUNButton">
+   <property name="geometry">
+    <rect>
+     <x>490</x>
+     <y>400</y>
+     <width>161</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>AR DESTINE</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: white;
+border-style: solid;
+border-color: black;
+border-width: 3px;
+border-radius: 10px;
+color: black;</string>
+   </property>
+   <property name="text">
+    <string>Retrieve Username</string>
+   </property>
+  </widget>
+  <widget class="QListView" name="revealUsername">
+   <property name="geometry">
+    <rect>
+     <x>780</x>
+     <y>260</y>
+     <width>151</width>
+     <height>61</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>760</x>
+     <y>230</y>
+     <width>191</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>AR DESTINE</family>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Your Username Is:</string>
+   </property>
+  </widget>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>200</y>
+     <width>591</width>
+     <height>34</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QLabel" name="fUNEmail">
+      <property name="font">
+       <font>
+        <family>AR DESTINE</family>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Email Address:</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="fUNInput">
+      <property name="styleSheet">
+       <string notr="true">background-color: white;
+border-style: solid;
+border-color: black;
+border-width: 5px;
+border-radius: 10px;
+color: black;</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>270</y>
+     <width>591</width>
+     <height>34</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <item>
+     <widget class="QLabel" name="fUNSecurityQuest">
+      <property name="font">
+       <font>
+        <family>AR DESTINE</family>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Security Question:</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QComboBox" name="fUNSecurityInput">
+      <property name="styleSheet">
+       <string notr="true">background-color: white;
+border-style: solid;
+border-color: black;
+border-width: 3px;
+color: black;</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>340</y>
+     <width>591</width>
+     <height>34</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_3">
+    <item>
+     <widget class="QLabel" name="fUNAnswer">
+      <property name="font">
+       <font>
+        <family>AR DESTINE</family>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Answer:</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="fUNAnswerInput">
+      <property name="styleSheet">
+       <string notr="true">background-color: white;
+border-style: solid;
+border-color: black;
+border-width: 5px;
+border-radius: 10px;
+color: black;</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
+
+
+//Instructions design code
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Instructions</class>
+ <widget class="QDialog" name="Instructions">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1244</width>
+    <height>880</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QLabel" name="iTitle">
+   <property name="geometry">
+    <rect>
+     <x>520</x>
+     <y>0</y>
+     <width>371</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>AR DESTINE</family>
+     <pointsize>48</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Instructions&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
+
+
+//Multi Player Mode design code
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>multiPChess</class>
+ <widget class="QDialog" name="multiPChess">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1543</width>
+    <height>736</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QLabel" name="statusLabel4">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>650</y>
+     <width>261</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>11</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>&quot;[+]Status&quot;</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="mpgTitle">
+   <property name="geometry">
+    <rect>
+     <x>500</x>
+     <y>0</y>
+     <width>381</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>AR DESTINE</family>
+     <pointsize>48</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Multi Player&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
+
+
+//Multi Player Login design code
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>multiPMode</class>
+ <widget class="QDialog" name="multiPMode">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1529</width>
+    <height>812</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QLabel" name="mpliTitle">
+   <property name="geometry">
+    <rect>
+     <x>410</x>
+     <y>0</y>
+     <width>581</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>AR DESTINE</family>
+     <pointsize>48</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Multi Player Login&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="euTitlep1">
+   <property name="geometry">
+    <rect>
+     <x>250</x>
+     <y>110</y>
+     <width>251</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>AR DESTINE</family>
+     <pointsize>26</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Existing User?&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="euTitlep2">
+   <property name="geometry">
+    <rect>
+     <x>920</x>
+     <y>110</y>
+     <width>261</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>AR DESTINE</family>
+     <pointsize>26</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Existing User?&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="siTitlep1">
+   <property name="geometry">
+    <rect>
+     <x>240</x>
+     <y>150</y>
+     <width>261</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>AR DESTINE</family>
+     <pointsize>24</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Player 1 Sign In:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="siTitlep2">
+   <property name="geometry">
+    <rect>
+     <x>920</x>
+     <y>150</y>
+     <width>271</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>AR DESTINE</family>
+     <pointsize>24</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Player 2 Sign In:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="loginButton2">
+   <property name="geometry">
+    <rect>
+     <x>620</x>
+     <y>360</y>
+     <width>91</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>AR DESTINE</family>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: black;
+border-style: solid;
+border-color: white;
+border-width: 3px;
+border-radius: 10px;
+color: white;</string>
+   </property>
+   <property name="text">
+    <string>Login</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="statusLabel3">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>640</y>
+     <width>451</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>&quot;[+]Status&quot;</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label1">
+   <property name="geometry">
+    <rect>
+     <x>510</x>
+     <y>560</y>
+     <width>371</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>AR DESTINE</family>
+     <pointsize>28</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Not A Member Yet? &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label2">
+   <property name="geometry">
+    <rect>
+     <x>470</x>
+     <y>600</y>
+     <width>451</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>AR DESTINE</family>
+     <pointsize>28</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Create An Accont Today!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="signupButton">
+   <property name="geometry">
+    <rect>
+     <x>930</x>
+     <y>550</y>
+     <width>171</width>
+     <height>101</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>AR DESTINE</family>
+     <pointsize>28</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: black;
+border-style: solid;
+border-color: white;
+border-width: 3px;
+border-radius: 10px;
+color: white;</string>
+   </property>
+   <property name="text">
+    <string>Sign Up!</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="fUNButton2">
+   <property name="geometry">
+    <rect>
+     <x>560</x>
+     <y>440</y>
+     <width>211</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>AR DESTINE</family>
+     <pointsize>14</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: black;
+border-style: solid;
+border-color: black;
+border-width: 5px;
+border-radius: 10px;
+color: white;</string>
+   </property>
+   <property name="text">
+    <string>Forgotten Username?</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="fPWButton2">
+   <property name="geometry">
+    <rect>
+     <x>560</x>
+     <y>480</y>
+     <width>211</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>AR DESTINE</family>
+     <pointsize>14</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: black;
+border-style: solid;
+border-color: black;
+border-width: 5px;
+border-radius: 10px;
+color: white;</string>
+   </property>
+   <property name="text">
+    <string>Forgotten Password?</string>
+   </property>
+  </widget>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>220</y>
+     <width>471</width>
+     <height>34</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QLabel" name="unTitle3">
+      <property name="font">
+       <font>
+        <family>AR DESTINE</family>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Username&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="unInputp1">
+      <property name="styleSheet">
+       <string notr="true">background-color: white;
+border-style: solid;
+border-color: black;
+border-width: 5px;
+border-radius: 10px;
+color: black;</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>310</y>
+     <width>471</width>
+     <height>34</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <item>
+     <widget class="QLabel" name="pwTitle3">
+      <property name="font">
+       <font>
+        <family>AR DESTINE</family>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Password&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="pwInputp1">
+      <property name="styleSheet">
+       <string notr="true">background-color: white;
+border-style: solid;
+border-color: black;
+border-width: 5px;
+border-radius: 10px;
+color: black;</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>770</x>
+     <y>220</y>
+     <width>471</width>
+     <height>34</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_3">
+    <item>
+     <widget class="QLabel" name="unTitle4">
+      <property name="font">
+       <font>
+        <family>AR DESTINE</family>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Username&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="unInputp2">
+      <property name="styleSheet">
+       <string notr="true">background-color: white;
+border-style: solid;
+border-color: black;
+border-width: 5px;
+border-radius: 10px;
+color: black;</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>770</x>
+     <y>310</y>
+     <width>471</width>
+     <height>34</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_4">
+    <item>
+     <widget class="QLabel" name="pwTitle4">
+      <property name="font">
+       <font>
+        <family>AR DESTINE</family>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Password&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="pwInputp2">
+      <property name="styleSheet">
+       <string notr="true">background-color: white;
+border-style: solid;
+border-color: black;
+border-width: 5px;
+border-radius: 10px;
+color: black;</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
+
+
+//Multi Player Sign Up design code
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>multiPMode2</class>
+ <widget class="QDialog" name="multiPMode2">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1452</width>
+    <height>875</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <widget class="QLabel" name="mpsuTitle">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>0</y>
+     <width>831</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>AR DESTINE</family>
+     <pointsize>48</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Multi Player Mode Sign Up&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="statusLabel5">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>670</y>
+     <width>301</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>&quot;[+]Status&quot;</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="p1SignUpTitle">
+   <property name="geometry">
+    <rect>
+     <x>170</x>
+     <y>110</y>
+     <width>321</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>AR DESTINE</family>
+     <pointsize>28</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Player 1 Sign Up:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="p2SignUpTitle">
+   <property name="geometry">
+    <rect>
+     <x>860</x>
+     <y>110</y>
+     <width>321</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>AR DESTINE</family>
+     <pointsize>28</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Player 2 Sign Up:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="createAccButton2">
+   <property name="geometry">
+    <rect>
+     <x>600</x>
+     <y>570</y>
+     <width>151</width>
+     <height>81</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>AR DESTINE</family>
+     <pointsize>24</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: black;
+border-style: solid;
+border-color: white;
+border-width: 3px;
+border-radius: 10px;
+color: white;</string>
+   </property>
+   <property name="text">
+    <string>PLAY!</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="securityQuestTitle2">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>380</y>
+     <width>271</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>AR DESTINE</family>
+     <pointsize>24</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Security Question&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="securityQuestTitle3">
+   <property name="geometry">
+    <rect>
+     <x>780</x>
+     <y>370</y>
+     <width>271</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>AR DESTINE</family>
+     <pointsize>24</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Security Question&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="securityQuestInput2">
+   <property name="geometry">
+    <rect>
+     <x>350</x>
+     <y>390</y>
+     <width>221</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: white;
+border-style: solid;
+border-color: black;
+border-width: 3px;
+color: black;</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="securityQuestInput3">
+   <property name="geometry">
+    <rect>
+     <x>1060</x>
+     <y>390</y>
+     <width>221</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: white;
+border-style: solid;
+border-color: black;
+border-width: 3px;
+color: black;</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="createAccButton4">
+   <property name="geometry">
+    <rect>
+     <x>310</x>
+     <y>490</y>
+     <width>71</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: black;
+border-style: solid;
+border-color: white;
+border-width: 3px;
+border-radius: 10px;
+color: white;</string>
+   </property>
+   <property name="text">
+    <string>Save</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="createButton5">
+   <property name="geometry">
+    <rect>
+     <x>1030</x>
+     <y>500</y>
+     <width>71</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: black;
+border-style: solid;
+border-color: white;
+border-width: 3px;
+border-radius: 10px;
+color: white;</string>
+   </property>
+   <property name="text">
+    <string>Save</string>
+   </property>
+  </widget>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>180</y>
+     <width>501</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QLabel" name="unTitle5">
+      <property name="font">
+       <font>
+        <family>AR DESTINE</family>
+        <pointsize>24</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Username&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="unInput3">
+      <property name="styleSheet">
+       <string notr="true">background-color: white;
+border-style: solid;
+border-color: black;
+border-width: 5px;
+border-radius: 10px;
+color: black;</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>250</y>
+     <width>501</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <item>
+     <widget class="QLabel" name="pwTitle5">
+      <property name="font">
+       <font>
+        <family>AR DESTINE</family>
+        <pointsize>24</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Password&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="pwInput3">
+      <property name="styleSheet">
+       <string notr="true">background-color: white;
+border-style: solid;
+border-color: black;
+border-width: 5px;
+border-radius: 10px;
+color: black;</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>320</y>
+     <width>501</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_3">
+    <item>
+     <widget class="QLabel" name="emailTitle2">
+      <property name="font">
+       <font>
+        <family>AR DESTINE</family>
+        <pointsize>24</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Email&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="emailInput2">
+      <property name="styleSheet">
+       <string notr="true">background-color: white;
+border-style: solid;
+border-color: black;
+border-width: 5px;
+border-radius: 10px;
+color: black;</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>780</x>
+     <y>180</y>
+     <width>501</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_4">
+    <item>
+     <widget class="QLabel" name="unTitle6">
+      <property name="font">
+       <font>
+        <family>AR DESTINE</family>
+        <pointsize>24</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Username&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="unInput4">
+      <property name="styleSheet">
+       <string notr="true">background-color: white;
+border-style: solid;
+border-color: black;
+border-width: 5px;
+border-radius: 10px;
+color: black;</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>780</x>
+     <y>250</y>
+     <width>501</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_5">
+    <item>
+     <widget class="QLabel" name="pwTitle6">
+      <property name="font">
+       <font>
+        <family>AR DESTINE</family>
+        <pointsize>24</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Password&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="pwInput4">
+      <property name="styleSheet">
+       <string notr="true">background-color: white;
+border-style: solid;
+border-color: black;
+border-width: 5px;
+border-radius: 10px;
+color: black;</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>780</x>
+     <y>320</y>
+     <width>501</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_6">
+    <item>
+     <widget class="QLabel" name="emailTitle3">
+      <property name="font">
+       <font>
+        <family>AR DESTINE</family>
+        <pointsize>24</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Email&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="emailInput3">
+      <property name="styleSheet">
+       <string notr="true">background-color: white;
+border-style: solid;
+border-color: black;
+border-width: 5px;
+border-radius: 10px;
+color: black;</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>430</y>
+     <width>501</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_7">
+    <item>
+     <widget class="QLabel" name="answerTitle2">
+      <property name="font">
+       <font>
+        <family>AR DESTINE</family>
+        <pointsize>24</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Answer&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="answerInput2">
+      <property name="styleSheet">
+       <string notr="true">background-color: white;
+border-style: solid;
+border-color: black;
+border-width: 5px;
+border-radius: 10px;
+color: black</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>780</x>
+     <y>440</y>
+     <width>501</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_8">
+    <item>
+     <widget class="QLabel" name="answerTitle3">
+      <property name="font">
+       <font>
+        <family>AR DESTINE</family>
+        <pointsize>24</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Answer&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="answerInput3">
+      <property name="styleSheet">
+       <string notr="true">background-color: white;
+border-style: solid;
+border-color: black;
+border-width: 5px;
+border-radius: 10px;
+color: black</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
+
+
+//Single Player Mode design code
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>singlePChess</class>
+ <widget class="QDialog" name="singlePChess">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>872</width>
+    <height>730</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QLabel" name="spgLabel">
+   <property name="geometry">
+    <rect>
+     <x>510</x>
+     <y>0</y>
+     <width>411</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>AR DESTINE</family>
+     <pointsize>48</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Single Player&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="statusLabel2">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>670</y>
+     <width>401</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>11</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="text">
+    <string>&quot;[+]Status&quot;</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
+
+//Single Player Login design code
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>singlePMode</class>
+ <widget class="QDialog" name="singlePMode">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1421</width>
+    <height>1051</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Single Player Mode</string>
+  </property>
+  <widget class="QLabel" name="spTitle">
+   <property name="geometry">
+    <rect>
+     <x>380</x>
+     <y>0</y>
+     <width>591</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>AR DESTINE</family>
+     <pointsize>48</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Single Player Login&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="euTitle">
+   <property name="geometry">
+    <rect>
+     <x>170</x>
+     <y>130</y>
+     <width>251</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>AR DESTINE</family>
+     <pointsize>26</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Existing User?&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="nuTitle">
+   <property name="geometry">
+    <rect>
+     <x>930</x>
+     <y>130</y>
+     <width>191</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>AR DESTINE</family>
+     <pointsize>26</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;New User?&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="signinTitle">
+   <property name="geometry">
+    <rect>
+     <x>230</x>
+     <y>180</y>
+     <width>121</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>AR DESTINE</family>
+     <pointsize>24</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Sign In:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="createaccTitle">
+   <property name="geometry">
+    <rect>
+     <x>900</x>
+     <y>180</y>
+     <width>251</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>AR DESTINE</family>
+     <pointsize>24</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Create Account:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="fUNButton">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>570</y>
+     <width>211</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>AR DESTINE</family>
+     <pointsize>14</pointsize>
+     <underline>true</underline>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: black;
+border-style: solid;
+border-color: black;
+border-width: 5px;
+border-radius: 10px;
+color: white;</string>
+   </property>
+   <property name="text">
+    <string>Forgotten Username?</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="fPWButton">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>610</y>
+     <width>211</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>AR DESTINE</family>
+     <pointsize>14</pointsize>
+     <underline>true</underline>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: black;
+border-style: solid;
+border-color: black;
+border-width: 5px;
+border-radius: 10px;
+color: white;</string>
+   </property>
+   <property name="text">
+    <string>Forgotten Password?</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="createAccButton">
+   <property name="geometry">
+    <rect>
+     <x>1120</x>
+     <y>540</y>
+     <width>131</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>AR DESTINE</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: black;
+border-style: solid;
+border-color: white;
+border-width: 3px;
+border-radius: 10px;
+color: white;</string>
+   </property>
+   <property name="text">
+    <string>Create Account</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="loginButton">
+   <property name="geometry">
+    <rect>
+     <x>470</x>
+     <y>440</y>
+     <width>91</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>AR DESTINE</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: black;
+border-style: solid;
+border-color: white;
+border-width: 3px;
+border-radius: 10px;
+color: white;</string>
+   </property>
+   <property name="text">
+    <string>Login</string>
+   </property>
+  </widget>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>250</y>
+     <width>481</width>
+     <height>34</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QLabel" name="un1Title">
+      <property name="font">
+       <font>
+        <family>AR DESTINE</family>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Username:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="unInput1">
+      <property name="styleSheet">
+       <string notr="true">background-color: white;
+border-style: solid;
+border-color: black;
+border-width: 5px;
+border-radius: 10px;
+color: black;</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>350</y>
+     <width>481</width>
+     <height>34</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <item>
+     <widget class="QLabel" name="pw1Title">
+      <property name="font">
+       <font>
+        <family>AR DESTINE</family>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Password:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="pwInput1">
+      <property name="styleSheet">
+       <string notr="true">background-color: white;
+border-style: solid;
+border-color: black;
+border-width: 5px;
+border-radius: 10px;
+color: black;</string>
+      </property>
+      <property name="echoMode">
+       <enum>QLineEdit::Normal</enum>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>770</x>
+     <y>250</y>
+     <width>481</width>
+     <height>34</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_3">
+    <item>
+     <widget class="QLabel" name="un2Title">
+      <property name="font">
+       <font>
+        <family>AR DESTINE</family>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Username:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="unInput2">
+      <property name="styleSheet">
+       <string notr="true">background-color: white;
+border-style: solid;
+border-color: black;
+border-width: 5px;
+border-radius: 10px;
+color: black;</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>770</x>
+     <y>300</y>
+     <width>481</width>
+     <height>34</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_4">
+    <item>
+     <widget class="QLabel" name="pw2Title">
+      <property name="font">
+       <font>
+        <family>AR DESTINE</family>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Password:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="pwInput2">
+      <property name="styleSheet">
+       <string notr="true">background-color: white;
+border-style: solid;
+border-color: black;
+border-width: 5px;
+border-radius: 10px;
+color: black;</string>
+      </property>
+      <property name="echoMode">
+       <enum>QLineEdit::Normal</enum>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>770</x>
+     <y>350</y>
+     <width>481</width>
+     <height>34</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_5">
+    <item>
+     <widget class="QLabel" name="emailTitle">
+      <property name="font">
+       <font>
+        <family>AR DESTINE</family>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Email:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="emailInput">
+      <property name="styleSheet">
+       <string notr="true">background-color: white;
+border-style: solid;
+border-color: black;
+border-width: 5px;
+border-radius: 10px;
+color: black;</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QLabel" name="statusLabel">
+   <property name="geometry">
+    <rect>
+     <x>590</x>
+     <y>660</y>
+     <width>421</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>11</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#000000;&quot;&gt;&amp;quot;[+]Status&amp;quot;&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>770</x>
+     <y>400</y>
+     <width>481</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_6">
+    <item>
+     <widget class="QLabel" name="securityQuestTitle">
+      <property name="font">
+       <font>
+        <family>AR DESTINE</family>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Security Question:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QComboBox" name="spmsqListBox">
+      <property name="styleSheet">
+       <string notr="true">background-color: white;
+border-style: solid;
+border-color: black;
+border-width: 3px;
+color: black;</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>770</x>
+     <y>460</y>
+     <width>481</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_7">
+    <item>
+     <widget class="QLabel" name="answerTitle">
+      <property name="font">
+       <font>
+        <family>AR DESTINE</family>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Answer:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="answerInput">
+      <property name="styleSheet">
+       <string notr="true">background-color: white;
+border-style: solid;
+border-color: black;
+border-width: 5px;
+border-radius: 10px;
+color: black;</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
+
+
+//Start Window design code
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>StartWindow</class>
+ <widget class="QMainWindow" name="StartWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1636</width>
+    <height>727</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>StartWindow</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="QPushButton" name="singlePButton">
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>290</y>
+      <width>301</width>
+      <height>111</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>AR DESTINE</family>
+      <pointsize>36</pointsize>
+      <underline>true</underline>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 white, stop: 1 #b4930d);
+border-style: solid;
+border-color: white;
+border-width: 5px;
+border-radius: 10px;
+color: black;</string>
+    </property>
+    <property name="text">
+     <string>Single Player</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="multiPButton">
+    <property name="geometry">
+     <rect>
+      <x>750</x>
+      <y>290</y>
+      <width>281</width>
+      <height>111</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>AR DESTINE</family>
+      <pointsize>36</pointsize>
+      <underline>true</underline>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 white, stop: 1 #b4930d);
+border-style: solid;
+border-color: white;
+border-width: 5px;
+border-radius: 10px;
+color: black;</string>
+    </property>
+    <property name="text">
+     <string>Multi Player</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="title">
+    <property name="geometry">
+     <rect>
+      <x>500</x>
+      <y>0</y>
+      <width>371</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>AR DESTINE</family>
+      <pointsize>58</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Chess 2.0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="subtitle">
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>90</y>
+      <width>701</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>AR DESTINE</family>
+      <pointsize>48</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Please Select A Mode:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="instructionsButton">
+    <property name="geometry">
+     <rect>
+      <x>540</x>
+      <y>550</y>
+      <width>281</width>
+      <height>111</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>AR DESTINE</family>
+      <pointsize>36</pointsize>
+      <underline>true</underline>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 white, stop: 1 #b4930d);
+border-style: solid;
+border-color: white;
+border-width: 5px;
+border-radius: 10px;
+color: black;</string>
+    </property>
+    <property name="text">
+     <string>Instructions</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1636</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>
+
