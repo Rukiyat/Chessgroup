@@ -1,4 +1,107 @@
+//GameStatus UI
 
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>gamestatus</class>
+ <widget class="QDialog" name="gamestatus">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>578</width>
+    <height>345</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QPushButton" name="currentgame">
+   <property name="geometry">
+    <rect>
+     <x>340</x>
+     <y>170</y>
+     <width>171</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(164, 164, 164, 255), stop:1 rgba(255, 255, 255, 255));</string>
+   </property>
+   <property name="text">
+    <string>Continue Current Game</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="newgame">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>170</y>
+     <width>171</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(164, 164, 164, 255), stop:1 rgba(255, 255, 255, 255));</string>
+   </property>
+   <property name="text">
+    <string>New Game</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="welcomemsg">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>40</y>
+     <width>521</width>
+     <height>81</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>28</pointsize>
+     <weight>75</weight>
+     <italic>true</italic>
+     <bold>true</bold>
+     <strikeout>false</strikeout>
+     <kerning>true</kerning>
+    </font>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="goback">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>310</y>
+     <width>111</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>18</pointsize>
+     <weight>75</weight>
+     <italic>true</italic>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(164, 164, 164, 255), stop:1 rgba(255, 255, 255, 255));</string>
+   </property>
+   <property name="text">
+    <string>&lt;- Go BACK</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
+
+
+
+//GameStatus header
 #ifndef gamestatus_H
 #define gamestatus_H
 
@@ -36,8 +139,7 @@ private:
 
 #endif // gamestatus_H
 
-
-
+//GameStatus cpp
 #include "gamestatus.h"
 #include "ui_gamestatus.h"
 #include "walls.h"
@@ -58,6 +160,9 @@ private:
 #include <QObject>
 #include "buttonsheader.h"
 #include "screenwindow.h"
+#include <QDebug>
+#include <QMediaPlayer>
+
 
 validatemoves *valid = new validatemoves;
 extern QString player1username, player2username;
@@ -120,74 +225,217 @@ public:
 
 
 //performs what the undo function should do.
-void Undo()
+void buttonsheader::DeletedataSaved() //calls the slot funtion from buttonsheader.h
 {
 
-    savemoves connection;
-
-
-    connection.connOpen();
-    QSqlQuery* savequery= new QSqlQuery(connection.pdatabase);
-    savequery->prepare("Delete from savemoves where PieceColour ='"+pieceColour+"',PieceName='"+piecename+"',PiecePresent='"+piecePresent+"',PiecePosition='"+saveposition+"',username='"+playersturn+"'");
-    if (savequery->exec())
+    savemoves connection; // This calls the connection from savemoves
+    connection.connOpen(); // open the connection
+    QSqlQuery* savequery= new QSqlQuery(connection.pdatabase); //opens a new connection to the database
+    QSqlQuery* savequery2= new QSqlQuery(connection.pdatabase); //
+    savequery->prepare("Delete from savemoves where username='"+player1username+"'"); // when you login, it grabs the username you used to login with on multiplayer. if it is found in databsae, deletes all records of player 1 in tables
+    savequery2->prepare("Delete from savemoves where username='"+player2username+"'"); // same thing for player 2
+    if (savequery->exec()) //if player 1 query has been executed, output message box
     {
-        QMessageBox message;
-        message.setText("DATA DELETED");
-        message.exec();
-        connection.connClose();
-    }
-    else
-    {
-        QMessageBox message;
-        message.setText("UNABLE TO DELETE");
-        message.exec();
-    }
+        if (savequery2->exec())
+        {
+            QMessageBox message;
+            message.setText(" YOUR GAME HAS BEEN DELETED");
+            message.exec();
+            connection.connClose(); // Closes connection to database
+        }
+        else // if query cant be executed, output message box
+        {
+            QMessageBox message;
+            message.setText("UNABLE TO DELETE YOUR GAME");
+            message.exec();
+        }
 
+
+    }
 
 
 }
 
 //performs what the go back function should do
-void gogoback()
+void buttonsheader::gogoback()
 {
+
     gamestatus *gaming;
     gaming = new gamestatus;
     gaming->show();
 }
 
-void save()
+//performs what the save function should do
+void buttonsheader::Save()
 {
+    int i, j;
+    //connects the to the savemoves database connectiion
+    savemoves connection;
+    bool gamesaved=false;
+    bool updatedgame=false;
+    connection.connOpen();
+    QSqlQuery* savequery1= new QSqlQuery(connection.pdatabase);
+    if(savequery1->exec("select * from savemoves where username ='"+player1username+"' or username ='"+player2username+"'"))
+    {
+        int count=0;
+        while(savequery1->next())
+        {
+             count++;
+        }
+        if (count<1)
+        {
+            for(i=0;i<8;i++)
+            {
+                for(j=0;j<8;j++)
+                {
+                    //saving just the piece characteristics that is present on the board.
+                    if (tile[i][j]->piece==1)
+                    {
+                        //converting the white piecolour from integer=1 to string'W' to store in the database.
+                        if (tile[i][j]->pieceColor==1)
+                        {
+                            pieceColour="W";
+                            //if white asssign player1username to playersturn
+                            playersturn=player1username;
+
+                        }
+                        else if (tile[i][j]->pieceColor==0)
+                        {
+                            pieceColour="B";
+                            //if white asssign player2username to playersturn
+                            playersturn=player2username;
+                        }
+
+                        //converts the string tile number from integer into a string to store in the database.
+                        saveposition= QString::number(tile[i][j]->tileNum);
+                        piecePresent="1";
+                        piecename=tile[i][j]->pieceName;
+
+                        //opening up the databse to save the data
+                        connection.connOpen();
+                        QSqlQuery* savequery2= new QSqlQuery(connection.pdatabase);
+
+                        //inserting the data into the database.
+                        savequery2->prepare("INSERT INTO savemoves(PieceColour,PieceName,PiecePresent,PiecePosition,username) VALUES ('"+pieceColour+"','"+piecename+"','"+piecePresent+"','"+saveposition+"','"+playersturn+"')");
+                        if (savequery2->exec())
+                        {
+                            gamesaved=true;
+                        }
+                        connection.connClose();
+
+                    }
+                }
+           }
+
+            if (gamesaved)
+            {
+                QMessageBox message;
+                message.setText("Your Game has been saved!");
+                 message.exec();
+             }
+             else
+             {
+                 QMessageBox message;
+                 message.setText("Your Game was unable to save.");
+                 message.exec();
+
+             }
+
+
+         }
+         else if (count>1)
+         {
+            for(i=0;i<8;i++)
+            {
+                for(j=0;j<8;j++)
+                {
+                    //saving just the piece characteristics that is present on the board.
+                    if (tile[i][j]->piece==1)
+                    {
+                        //converting the white piecolour from integer=1 to string'W' to store in the database.
+                        if (tile[i][j]->pieceColor==1)
+                        {
+                            pieceColour="W";
+                            //if white asssign player1username to playersturn
+                            playersturn=player1username;
+
+                        }
+                        else if (tile[i][j]->pieceColor==0)
+                        {
+                            pieceColour="B";
+                            //if white asssign player2username to playersturn
+                            playersturn=player2username;
+                        }
+
+                        //converts the string tile number from integer into a string to store in the database.
+                        saveposition= QString::number(tile[i][j]->tileNum);
+                        piecePresent="1";
+                        piecename=tile[i][j]->pieceName;
+
+
+                        connection.connOpen();
+                        QSqlQuery* savequery3= new QSqlQuery(connection.pdatabase);
+                        savequery3->prepare("update savemoves set PieceColour='"+pieceColour+"',PieceName='"+piecename+"',PiecePresent='"+piecePresent+"',PiecePosition='"+saveposition+"',username='"+playersturn+"'");
+                        if (savequery3->exec())
+                        {
+                            updatedgame=true;
+                        }
+                        connection.connClose();
+
+                   }
+              }
+          }
+           if (updatedgame)
+           {
+               QMessageBox message;
+               message.setText("Your Game has been updated!");
+               message.exec();
+           }
+           else
+           {
+               QMessageBox message;
+               message.setText("Your Game was unable to be updated.");
+               message.exec();
+
+           }
+
+
+      }
+    }
+    connection.connClose();
 
 }
 
-void instructions()
+
+//performs what the instructions function should do
+void buttonsheader::instructions()
 {
     QMessageBox message;
     message.setText("WELCOME TO CAPTURE THE ENEMY! THE PIECES ARE Pawn=Soldier ROOK=BOMB  KING=WIZARD W=WIZARD BISHOP=PRIEST KNIGHT=HORSE");
     message.exec();
 }
 
-//draws the buttongoback" and then calls the goback function
+//draws the "buttongoback" and then calls the goback function
 void buttongoback(QWidget *baseWidget)
 {
     QPushButton *go = new QPushButton(baseWidget);
     go->setGeometry(0,670,100,30);
     go->setText("<- EXIT GAME");
     go->setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(164, 164, 164, 255), stop:1 rgba(255, 255, 255, 255));");
-    QAbstractAnimation::connect(but.undo, SIGNAL(clicked()), baseWidget, SLOT(goback()));
+    QObject::connect(go, SIGNAL(clicked()), baseWidget, SLOT(gogoback()));
+
 
 }
 
 
 
-// draws the buttonUndo" and then calls undo function
-void buttonUndo(QWidget *baseWidget) //
+// draws the buttonDelete and then calls delete function
+void buttonDelete(QWidget *baseWidget) //Calling a subclass of the variable QWidget (temporary variable to refer to the main form outside of its function space)
 {
-    buttonsheader but;
-    but.undo = new QPushButton("UNDO MOVE",baseWidget); // defining a variable for the pushbutton
-    but.undo->setGeometry(0,170,100,30); // defines the size and the position of the button
-    but.undo->setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(164, 164, 164, 255), stop:1 rgba(255, 255, 255, 255));"); // stylesheet defines font
-    QAbstractAnimation::connect(but.undo, SIGNAL(clicked()), baseWidget, SLOT(Undo()));
+    QPushButton *deletedatasaved = new QPushButton("UNDO MOVE",baseWidget); // defining a variable for the pushbutton
+    deletedatasaved->setGeometry(0,170,100,30); // defines the size and the position of the button
+    deletedatasaved->setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(164, 164, 164, 255), stop:1 rgba(255, 255, 255, 255));"); // stylesheet defines font
+    QObject::connect(deletedatasaved, SIGNAL(clicked()), baseWidget, SLOT(DeletedataSaved())); // Finally calls the button, signal is when button is clicked, slot calls the function to delete data
 
 }
 
@@ -196,21 +444,22 @@ void buttonUndo(QWidget *baseWidget) //
 //draws the "save" button and calls the function save.
 void savebutton(QWidget *baseWidget)
 {
-    QPushButton *save = new QPushButton(baseWidget);
-    save->setGeometry(850,670,100,30);
-    save->setText("SAVE GAME");
-    save->setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(164, 164, 164, 255), stop:1 rgba(255, 255, 255, 255));");
 
+    QPushButton *save = new QPushButton("SAVE GAME",baseWidget);
+    save->setGeometry(850,670,100,30);
+    save->setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(164, 164, 164, 255), stop:1 rgba(255, 255, 255, 255));");
+    QObject::connect(save, SIGNAL(clicked()), baseWidget, SLOT(Save()));
 }
+
 
 //draws the button "how to play" and calls the function instructions.
 void HowtoPlayInfo(QWidget *baseWidget)
 {
-    QPushButton *infoguide = new QPushButton(baseWidget);
+
+    QPushButton *infoguide = new QPushButton("How To Play", baseWidget);
     infoguide->setGeometry(10,30,80,40);
-    infoguide->setText("How To Play");
     infoguide->setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(164, 164, 164, 255), stop:1 rgba(255, 255, 255, 255));");
-    QAbstractAnimation::connect(but.undo, SIGNAL(clicked()), baseWidget, SLOT(instructions()));
+    QObject::connect(infoguide, SIGNAL(clicked()), baseWidget, SLOT(instructions()));
 }
 
 
@@ -320,7 +569,7 @@ void chessBoard(QWidget *baseWidget, walls *tile[8][8])
 void validate(walls *temp,int c,QWidget *baseWidget)
 {
 
-    int retValue,i,j;
+    int retValue,i;
 
     enum Columna
     {
@@ -337,6 +586,9 @@ void validate(walls *temp,int c,QWidget *baseWidget)
         //each time it's users turn to move a piece.
         if(temp->piece && (temp->pieceColor==turn))
         {
+            QMediaPlayer *welcome = new QMediaPlayer();
+            welcome->setMedia(QUrl::fromLocalFile("/Users/yeaminsidiquee/Desktop/mainChess/grabpiece.mov"));
+            welcome->play();
 
             //moving a piece and the colour
             expw[max++]=temp->tileNum;
@@ -698,7 +950,7 @@ void validate(walls *temp,int c,QWidget *baseWidget)
 
     else
     {
-
+        //when a user unclicks a piece on the wall refreshes the wall back to its old state.
         if(temp->tileNum==click1->tileNum)
         {
 
@@ -709,6 +961,7 @@ void validate(walls *temp,int c,QWidget *baseWidget)
 
 
         }
+
         //The final destination of the piece.
         for(i=0;i<max;i++)
         {
@@ -1054,7 +1307,7 @@ void validate(walls *temp,int c,QWidget *baseWidget)
                 click1->display(click1->pieceName);
                 temp->display(click1->pieceName);
 
-                //displays the tile colour of the walls.
+                //displays (refreshes) the tile colour of the walls.
                 click1->wallDisplay();
                 temp->wallDisplay();
 
@@ -1072,17 +1325,20 @@ void validate(walls *temp,int c,QWidget *baseWidget)
 
                 disOrange();
 
+                //plays the audio sound of when you move a piece to its final destination
+                QMediaPlayer *movepiece = new QMediaPlayer();
+                movepiece->setMedia(QUrl::fromLocalFile("/Users/yeaminsidiquee/Desktop/mainChess/droppiece.mov"));
+                movepiece->play();
+
                 if (temp->pieceColor==1 && turn==1)
                 {
                     pieceColour="W";
-                    qDebug() << pieceColour;
                     playersturn=player1username;
 
                 }
                 if (temp->pieceColor==0 && turn==0)
                 {
                     pieceColour="B";
-                    qDebug() << pieceColour;
                     playersturn=player2username;
                 }
 
@@ -1456,11 +1712,14 @@ void validate(walls *temp,int c,QWidget *baseWidget)
 
                 disOrange();
 
+                //plays the audio sound of when you move a piece to its final destination
+                QMediaPlayer *movepiece = new QMediaPlayer();
+                movepiece->setMedia(QUrl::fromLocalFile("/Users/yeaminsidiquee/Desktop/mainChess/droppiece.mov"));
+                movepiece->play();
 
                 if (temp->pieceColor==1 && turn==1)
                 {
                     pieceColour="W";
-                    qDebug() << pieceColour;
                     playersturn=player1username;
 
 
@@ -1468,7 +1727,7 @@ void validate(walls *temp,int c,QWidget *baseWidget)
                 if (temp->pieceColor==0 && turn==0)
                 {
                     pieceColour="B";
-                    qDebug() << pieceColour;
+
                     playersturn=player2username;
                 }
 
@@ -1508,71 +1767,6 @@ void validate(walls *temp,int c,QWidget *baseWidget)
         sleep(double(0.4));
 
     }
-
-
-
-
-
-    //connects the to the savemoves database connectiion
-    savemoves connection;
-    for(i=0;i<8;i++)
-    {
-        for(j=0;j<8;j++)
-        {
-            //saving just the piece characteristics that is present on the board.
-            if (tile[i][j]->piece==1)
-            {
-                qDebug()<< tile[i][j]->pieceColor;
-                qDebug()<< tile[i][j]->piece;
-                qDebug()<< tile[i][j]->pieceName;
-                qDebug()<< tile[i][j]->tileNum;
-
-
-                //converting the white piecolour from integer=1 to string'W' to store in the database.
-                if (tile[i][j]->pieceColor==1)
-                {
-                    pieceColour="W";
-                    //if white asssign player1username to playersturn
-                    playersturn=player1username;
-
-                }
-                else if (tile[i][j]->pieceColor==0)
-                {
-                    pieceColour="B";
-                    //if white asssign player2username to playersturn
-                    playersturn=player2username;
-                }
-
-                //converts the string tile number from integer into a string to store in the database.
-                saveposition= QString::number(tile[i][j]->tileNum);
-                piecePresent="1";
-                piecename=tile[i][j]->pieceName;
-
-
-
-
-                //opening up the databse to save the data
-                connection.connOpen();
-                QSqlQuery* savequery= new QSqlQuery(connection.pdatabase);
-                savequery->prepare("INSERT INTO savemoves(PieceColour,PieceName,PiecePresent,PiecePosition,username) VALUES ('"+pieceColour+"','"+piecename+"','"+piecePresent+"','"+saveposition+"','"+playersturn+"')");
-                if (savequery->exec())
-                {
-                    QMessageBox message;
-                    message.setText("Your Game unable to save");
-                    message.exec();
-                    connection.connClose();
-                }
-                else
-                {
-                    QMessageBox message;
-                     message.setText("Your Game was unable to save.");
-                      message.exec();
-               }
-            }
-
-        }
-    }
-
 
 }
 
@@ -1627,11 +1821,14 @@ void disOrange()
 //loads up the board from the databse.
 void load(walls *tile[8][8])
 {
-    QString PieceColour,PieceName,PiecePresent,PiecePosition,player;
+    QString PieceColour,PieceName,PiecePresent,player;
+    int PiecePosition=0;
 
+    // to load the chess board
+    savemoves connection;
 
     //redraws the chess window.
-    QWidget *myWidget=new QWidget();
+    buttonsheader *myWidget=new buttonsheader();
     myWidget->setGeometry(0,0,1370,700);
 
     int i,j,k=0,hor,ver;
@@ -1646,6 +1843,7 @@ void load(walls *tile[8][8])
     border[2]->outline(myWidget,862,125,1);
     }
 
+
     //Create 64 tiles (allocating memories to the objects of Tile class)
     ver=125;
     for(i=0;i<8;i++)
@@ -1655,7 +1853,7 @@ void load(walls *tile[8][8])
         {
             //empty squares
             tile[i][j] = new walls(myWidget);
-            tile[i][j]->tileColor=(i+j)%2; //takes the remainder
+            tile[i][j]->tileColor=(i+j)%2;
             tile[i][j]->piece=0;
             tile[i][j]->row=i;
             tile[i][j]->col=j;
@@ -1663,47 +1861,78 @@ void load(walls *tile[8][8])
             tile[i][j]->wallDisplay();
             tile[i][j]->setGeometry(hor,ver,64,64);
             hor+=64;
-            //loaded squares of pieces.
+
 
         }
         ver+=64;
 
     }
 
-
-    wR=7;
-    wC=4;
-
-    bR=0;
-    bC=4;
-
-
-
-
-    // to load the chess board
-    savemoves connection;
-
-    ver=125;
     for(i=0;i<8;i++)
     {
-        hor=350;
         for(j=0;j<8;j++)
         {
             connection.connOpen();
             QSqlQuery* query = new QSqlQuery(connection.pdatabase);
             query->exec("select * from savemoves where PieceColour ='"+PieceColour+"', PieceName ='"+PieceName+"', PiecePresent ='"+PiecePresent+"', PiecePosition ='"+PiecePosition+"',username ='"+player+"'");
-            qDebug()<<"loaded";
 
             while(query->next())
             {
+                qDebug()<<query->value(PiecePosition).toInt();
+                //converts the colour of the pieces
+                if(PieceColour=="W")
+                {
+                    tile[i][j]->pieceColor=1;
+                    player1username=player;
+                }
+                else if(PieceColour=="B")
+                {
+                    tile[i][j]->pieceColor=0;
+                    player2username=player;
+                }
 
-                tile[i][j] = new walls(myWidget);
-                tile[i][j]->tileColor=(i+j)%2;
-                tile[i][j]->piece=1;
+                //converts the pieces name
+                if (PieceName=="S")
+                {
+                    tile[i][j]->pieceName='S';
+                     tile[i][j]->display('S');
+                }
+                else if (PieceName=="B")
+                {
+                   tile[i][j]->pieceName='B';
+                     tile[i][j]->display('B');
 
-                if(PiecePosition==0)
+                }
+
+                else if (PieceName=="W")
+                {
+                    tile[i][j]->pieceName='W';
+                     tile[i][j]->display('W');
+                }
+
+                else if (PieceName=="P")
+                {
+                    tile[i][j]->pieceName='P';
+                     tile[i][j]->display('P');
+                }
+                else if (PieceName=="Z")
+                {
+                    tile[i][j]->pieceName='Z';
+                     tile[i][j]->display('Z');
+                }
+
+                else if (PieceName=="H")
+                {
+                    tile[i][j]->pieceName='H';
+                     tile[i][j]->display('H');
+                }
+
+
+                // gets the position of the pieces from the database.
+                if((query->value(PiecePosition).toInt())==0)
                 {
                     tile[i][j]->tileNum=0;
+
                 }
 
                 if(PiecePosition==1)
@@ -2020,75 +2249,70 @@ void load(walls *tile[8][8])
                 {
                     tile[i][j]->tileNum=63;
                 }
-
-                tile[i][j]->wallDisplay();
-                tile[i][j]->setGeometry(hor,ver,64,64);
-
-                if(PieceColour=="W")
-                {
-                    tile[i][j]->pieceColor=1;
-                    player1username=player;
-                }
-                else if(PieceColour=="B")
-                {
-                    tile[i][j]->pieceColor=0;
-                    player2username=player;
-                }
-
-
-                if (PieceName=="S")
-                {
-                    tile[i][j]->pieceName='S';
-                     tile[i][j]->display('S');
-                }
-                else if (PieceName=="B")
-                {
-                   tile[i][j]->pieceName='B';
-                     tile[i][j]->display('B');
-
-                }
-
-                else if (PieceName=="W")
-                {
-                    tile[i][j]->pieceName='W';
-                     tile[i][j]->display('W');
-                }
-
-                else if (PieceName=="P")
-                {
-                    tile[i][j]->pieceName='P';
-                     tile[i][j]->display('P');
-                }
-                else if (PieceName=="Z")
-                {
-                    tile[i][j]->pieceName='Z';
-                     tile[i][j]->display('Z');
-                }
-
-                else if (PieceName=="H")
-                {
-                    tile[i][j]->pieceName='H';
-                     tile[i][j]->display('H');
-                }
-
-
-
-
-                 hor+=64;
                  connection.connClose();
             }
-            ver+=64;
-
         }
     }
 
+    for(j=0;j<8;j++)
+    {
+        tile[1][j]->piece=1;
+        tile[1][j]->pieceColor=0;
+        tile[1][j]->display('S');
+    }
+
+    //black soldiers piece colour 1
+    for(j=0;j<8;j++)
+    {
+        tile[6][j]->piece=1;
+        tile[6][j]->pieceColor=1;
+        tile[6][j]->display('S');
+    }
+
+    //white and black remaining elements
+    for(j=0;j<8;j++)
+    {
+        tile[0][j]->piece=1;
+        tile[0][j]->pieceColor=0;
+        tile[7][j]->piece=1;
+        tile[7][j]->pieceColor=1;
+    }
+
+    {
+    tile[0][0]->display('B');
+    tile[0][1]->display('H');
+    tile[0][2]->display('P');
+    tile[0][3]->display('W');
+    tile[0][4]->display('Z');
+    tile[0][5]->display('P');
+    tile[0][6]->display('H');
+    tile[0][7]->display('B');
+
+    }
 
 
+    {
+    tile[7][0]->display('B');
+    tile[7][1]->display('H');
+    tile[7][2]->display('P');
+    tile[7][3]->display('W');
+    tile[7][4]->display('Z');
+    tile[7][5]->display('P');
+    tile[7][6]->display('H');
+    tile[7][7]->display('B');
 
+    }
+
+
+    wR=7;
+    wC=4;
+
+    bR=0;
+    bC=4;
 
     accessories(myWidget);
     buttongoback(myWidget);
-    buttonUndo(myWidget);
+    buttonDelete(myWidget);
     savebutton(myWidget);
     HowtoPlayInfo(myWidget);
     myWidget->show();
@@ -2102,12 +2326,13 @@ void gamestatus::on_newgame_clicked()
     if (player1username.contains("") && player2username.contains(""))
     {
 
-        QWidget *myWidget=new QWidget();
+        buttonsheader *myWidget=new buttonsheader();
         myWidget->setGeometry(0,0,1370,700);
+
         accessories(myWidget);
         chessBoard(myWidget,tile);
         buttongoback(myWidget);
-        buttonUndo(myWidget);
+        buttonDelete(myWidget);
         savebutton(myWidget);
         HowtoPlayInfo(myWidget);
         myWidget->show();
@@ -2132,9 +2357,88 @@ void gamestatus::on_currentgame_clicked()
    load(tile);
 }
 
+// Savemoves header
+#ifndef SAVEMOVES_H
+#define SAVEMOVES_H
+#include <QtSql>
+#include <QFileInfo>
 
 
+class savemoves // this is where the connection to the database was created.
+{
+public:
+    savemoves();
 
+    QSqlDatabase pdatabase;
+       void connClose()
+       {
+           pdatabase.close();
+           pdatabase.removeDatabase(QSqlDatabase::defaultConnection);
+       }
+
+       bool connOpen()
+       {
+           pdatabase=QSqlDatabase::addDatabase("QSQLITE");
+           pdatabase.setDatabaseName("/Users/yeaminsidiquee/Downloads/chessproject1.db");
+
+           if(!pdatabase.open()){
+               qDebug()<<("Failed to open the database");
+               return false;
+           }
+           else{
+               qDebug()<<("Connected2...");
+               return true;
+           }
+       }
+};
+
+#endif // SAVEMOVES_H
+
+//savemoves cpp
+#include "savemoves.h"
+
+savemoves::savemoves()
+{
+
+}
+
+// Buttonsheader header 
+
+#ifndef BUTTONSHEADER_H
+#define BUTTONSHEADER_H
+
+
+#include <QPushButton>
+#include <QObject>
+
+class buttonsheader
+        : public QWidget
+{
+     Q_OBJECT
+public:
+    buttonsheader();
+
+
+public slots: //this is a slot to connect to the signal
+         void DeletedataSaved(); //this defines the function to delete the game
+         void Save();
+         void gogoback();
+         void instructions();
+
+};
+
+#endif // BUTTONSHEADER_H
+
+
+//Buttonsheader cpp
+#include "buttonsheader.h"
+
+buttonsheader::buttonsheader()
+{
+
+}
+
+//walls header
 
 #ifndef WALLS_H
 #define WALLS_H
@@ -2165,6 +2469,7 @@ public:
 #endif // WALLS_H
 
 
+//walls cpp
 #include "walls.h"
 #include "validatemoves.h"
 #include "gamestatus.h"
@@ -2255,64 +2560,282 @@ void walls::wallDisplay()
         this->setStyleSheet("QLabel {background-color: qconicalgradient(cx:0.5, cy:0.5, angle:0, stop:0 rgba(35, 40, 3, 255), stop:0.16 rgba(136, 106, 22, 255), stop:0.225 rgba(166, 140, 41, 255), stop:0.285 rgba(204, 181, 74, 255), stop:0.345 rgba(235, 219, 102, 255), stop:0.415 rgba(245, 236, 112, 255), stop:0.52 rgba(209, 190, 76, 255), stop:0.57 rgba(187, 156, 51, 255), stop:0.635 rgba(168, 142, 42, 255), stop:0.695 rgba(202, 174, 68, 255), stop:0.75 rgba(218, 202, 86, 255), stop:0.815 rgba(208, 187, 73, 255), stop:0.88 rgba(187, 156, 51, 255), stop:0.935 rgba(137, 108, 26, 255), stop:1 rgba(35, 40, 3, 255));\n}");
 }
 
-#ifndef BUTTONSHEADER_H
-#define BUTTONSHEADER_H
 
+//newplayer cpp my bit of the code
 
-#include <QPushButton>
-#include <QObject>
+        //plays the audio welcome message
+        QMediaPlayer *welcome = new QMediaPlayer();
+        welcome->setMedia(QUrl::fromLocalFile("/Users/yeaminsidiquee/Downloads/Capture.m4a"));
+        welcome->play();
+//plays the incorrect details audio message
+        QMediaPlayer *incorrect = new QMediaPlayer();
+        incorrect->setMedia(QUrl::fromLocalFile("/Users/yeaminsidiquee/Downloads/Sorry.m4a"));
+        incorrect->play();
+     
+//The complete code
+#include "newplayer.h"
+#include "ui_newplayer.h"
+#include <QMessageBox>
+#include "ScreenWindow.h"
+#include <QMediaPlayer>
 
-class buttonsheader
-        : public QWidget
+newplayer::newplayer(QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::newplayer)
 {
-     Q_OBJECT
-public:
-    buttonsheader();
-     QPushButton *undo;
+    ui->setupUi(this);
+}
 
-//     public slots:
-//         void Undo();
-
-};
-
-#endif // BUTTONSHEADER_H
-
-
-#ifndef SAVEMOVES_H
-#define SAVEMOVES_H
-#include <QtSql>
-#include <QFileInfo>
-
-
-class savemoves
+newplayer::~newplayer()
 {
-public:
-    savemoves();
+    delete ui;
+}
 
-    QSqlDatabase pdatabase;
-       void connClose()
+void newplayer::on_create_clicked()
+
+{
+    QString forename, surname, newpassword, email, newusername, reenterpassword;
+    forename=ui->forename->text();
+    surname=ui->surname->text();
+    newpassword=ui->newpassword->text();
+    reenterpassword=ui->reenterpassword->text();
+    email=ui->email->text();
+    newusername=ui->newusername->text();
+    if (newpassword == reenterpassword)
+    {
+
+        connOpen();
+        QSqlQuery qry;
+        qry.prepare("select * from userprimarydata where Forename='"+forename+"', Surname='"+surname+"', Password ='"+newpassword+"', Email='"+email+"', Username ='"+newusername+"'");
+        qry.prepare("INSERT INTO userprimarydata (Forename, Surname, Password, Email, Username) VALUES ('"+forename+"','"+surname+"','"+newpassword+"','"+email+"','"+newusername+"')");
+        qry.exec();
+
+        QSqlQuery qry2;
+        qry2.prepare("select * from userdata where Password ='"+newpassword+"', Username ='"+newusername+"'");
+        qry2.prepare("INSERT INTO userdata(Username, Password) VALUES ('"+newusername+"','"+newpassword+"')");
+        qry2.exec();
+        this->hide();
+        connClose();
+
+        //plays the audio welcome message
+        QMediaPlayer *welcome = new QMediaPlayer();
+        welcome->setMedia(QUrl::fromLocalFile("/Users/yeaminsidiquee/Downloads/Capture.m4a"));
+        welcome->play();
+
+        this->hide();
+        gamestatus.show();
+
+
+    }
+
+
+
+    else if (newpassword != reenterpassword)
+    {
+
+        //plays the incorrect details audio message
+        QMediaPlayer *incorrect = new QMediaPlayer();
+        incorrect->setMedia(QUrl::fromLocalFile("/Users/yeaminsidiquee/Downloads/Sorry.m4a"));
+        incorrect->play();
+
+        QMessageBox message;
+        message.setText("Sorry!!. Password doesn't match, please try again.");
+        message.exec();
+    }
+}
+
+
+
+void newplayer::on_goback_clicked()
+{
+    this->hide();
+    ScreenWindow *newusermainscreen;
+    newusermainscreen = new ScreenWindow(this);
+    newusermainscreen -> show();
+}
+
+//loginuser cpp my bit of the code
+
+ //plays the audio welcome message
+            QMediaPlayer *welcome = new QMediaPlayer();
+            welcome->setMedia(QUrl::fromLocalFile("/Users/yeaminsidiquee/Downloads/Capture.m4a"));
+            welcome->play();
+            
+  //plays the incorrect details audio message
+            QMediaPlayer *incorrect = new QMediaPlayer();
+            incorrect->setMedia(QUrl::fromLocalFile("/Users/yeaminsidiquee/Downloads/Sorry.m4a"));
+            incorrect->play();
+       
+// The complete code
+#include "LoginUser.h"
+#include "ui_loginuser.h"
+#include <QMessageBox>
+#include "ScreenWindow.h"
+#include <QMediaPlayer>
+
+loginuser::loginuser(QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::loginuser)
+{
+    ui->setupUi(this);
+}
+
+loginuser::~loginuser()
+{
+    delete ui;
+}
+
+void loginuser::on_enter_clicked()
+{
+    QString username, password;
+    username=ui->name->text();
+    password=ui->passkey->text();
+    connOpen();
+    QSqlQuery qry;
+
+    if(qry.exec("select * from userdata where Password ='"+password+"' and Username ='"+username+"'"))
+    {
+        int count=0;
+        while(qry.next())
+        {
+             count++;
+        }
+        if (count==1)
+        {
+            this->hide();
+            gamestatus.show();
+            connClose();
+
+            //plays the audio welcome message
+            QMediaPlayer *welcome = new QMediaPlayer();
+            welcome->setMedia(QUrl::fromLocalFile("/Users/yeaminsidiquee/Downloads/Capture.m4a"));
+            welcome->play();
+         }
+        if (count<1)
+         {
+            //plays the incorrect details audio message
+            QMediaPlayer *incorrect = new QMediaPlayer();
+            incorrect->setMedia(QUrl::fromLocalFile("/Users/yeaminsidiquee/Downloads/Sorry.m4a"));
+            incorrect->play();
+
+            QMessageBox message;
+            message.setText("Sorry!!. The details entered does not exist, please try again.");
+            message.exec();
+            connClose();
+
+
+         }
+     }
+
+
+
+}
+
+void loginuser::on_gobackbutton_clicked()
+{
+    this->hide();
+    ScreenWindow *mainscreen;
+    mainscreen = new ScreenWindow(this);
+    mainscreen -> show();
+}
+
+//multiplayerlogin cpp my bit of the code
+            QMediaPlayer *welcome = new QMediaPlayer();
+            welcome->setMedia(QUrl::fromLocalFile("/Users/yeaminsidiquee/Downloads/Capture.m4a"));
+            welcome->play();
+
+            //plays the incorrect details audio message.
+            QMediaPlayer *incorrect = new QMediaPlayer();
+            incorrect->setMedia(QUrl::fromLocalFile("/Users/yeaminsidiquee/Downloads/Sorry.m4a"));
+            incorrect->play();
+//multiplayerlogin complete code
+
+#include "multiplayerlogin.h"
+#include "ui_multiplayerlogin.h"
+#include <QMessageBox>
+#include "ScreenWindow.h"
+#include "gamestatus.h"
+#include <QMediaPlayer>
+QString player1username, player1password,player2username, player2password;
+
+multiplayerlogin::multiplayerlogin(QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::multiplayerlogin)
+{
+    ui->setupUi(this);
+
+}
+
+multiplayerlogin::~multiplayerlogin()
+{
+    delete ui;
+}
+
+
+
+void multiplayerlogin::on_goback_clicked()
+{
+    this->hide();
+    ScreenWindow *loginmainscreen;
+    loginmainscreen = new ScreenWindow(this);
+    loginmainscreen -> show();
+}
+
+
+
+void multiplayerlogin::on_multiplayerenter_clicked()
+{
+    player1username=ui->player1username->text();
+    player1password=ui->player1password->text();
+    player2username=ui->player2username->text();
+    player2password=ui->player2password->text();
+    connOpen();
+    QSqlQuery qry;
+    QSqlQuery qry2;
+    if(qry.exec("select * from userdata where Password ='"+player1password+"' and Username ='"+player1username+"'"))
+    {
+       if(qry2.exec("select * from userdata where Password ='"+player2password+"' and Username ='"+player2username+"'"))
        {
-           pdatabase.close();
-           pdatabase.removeDatabase(QSqlDatabase::defaultConnection);
+          int count1=0;
+          while(qry.next())
+          {
+              while(qry2.next())
+              {
+                 count1++;
+              }
+          }
+        if (count1==1)
+        {
+            this->hide();
+            gamestatus.show();
+            connClose();
+            QMediaPlayer *welcome = new QMediaPlayer();
+            welcome->setMedia(QUrl::fromLocalFile("/Users/yeaminsidiquee/Downloads/Capture.m4a"));
+            welcome->play();
+
+         }
+        if (count1<1)
+        {
+            //plays the incorrect details audio message.
+            QMediaPlayer *incorrect = new QMediaPlayer();
+            incorrect->setMedia(QUrl::fromLocalFile("/Users/yeaminsidiquee/Downloads/Sorry.m4a"));
+            incorrect->play();
+
+            QMessageBox message;
+            message.setText("Sorry!!. The details entered does not exist, please try again.");
+            message.exec();
+            this->show();
+            connClose();
+
+        }
+
        }
 
-       bool connOpen()
-       {
-           pdatabase=QSqlDatabase::addDatabase("QSQLITE");
-           pdatabase.setDatabaseName("/Users/yeaminsidiquee/Downloads/chessproject.db");
+    }
+}
 
-           if(!pdatabase.open()){
-               qDebug()<<("Failed to open the database");
-               return false;
-           }
-           else{
-               qDebug()<<("Connected2...");
-               return true;
-           }
-       }
-};
 
-#endif // SAVEMOVES_H
+
 
 
 
